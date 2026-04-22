@@ -3,19 +3,13 @@ package com.example.recipe_api;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.lang.foreign.Linker.Option;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-
-import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import java.util.Optional;
@@ -54,7 +48,7 @@ public class RecipeController {
     
     //PATCH/api/recipes/{id} 更新　なければ404を返す
     @PatchMapping("/{id}")
-    public ResponseEntity<Recipe> updateRecipe(@PathVariable Integer id, @RequestBody Recipe updateDate) {
+    public ResponseEntity<Recipe> updateRecipe(@PathVariable Integer id, @RequestBody Recipe updateData) {
         Optional<Recipe> recipeOptional = recipeRepository.findById(id);
 
         // レシピが存在しない場合は404を返す
@@ -65,12 +59,12 @@ public class RecipeController {
         Recipe recipe = recipeOptional.get();
 
         // 更新データを反映させる
-        if(updateDate.getTitle() != null) recipe.setTitle(updateDate.getTitle());
-        if(updateDate.getMakingTime() != null) recipe.setMakingTime(updateDate.getMakingTime());
+        if(updateData.getTitle() != null) recipe.setTitle(updateData.getTitle());
+        if(updateData.getMakingTime() != null) recipe.setMakingTime(updateData.getMakingTime());
 
-        if(updateDate.getServes() != null) recipe.setServes(updateDate.getServes());
-        if(updateDate.getIngredients() != null) recipe.setIngredients(updateDate.getIngredients());
-        if(updateDate.getCost() != null) recipe.setCost(updateDate.getCost());
+        if(updateData.getServes() != null) recipe.setServes(updateData.getServes());
+        if(updateData.getIngredients() != null) recipe.setIngredients(updateData.getIngredients());
+        if(updateData.getCost() != null) recipe.setCost(updateData.getCost());
         
         Recipe updatedRecipe = recipeRepository.save(recipe);
         return ResponseEntity.ok(updatedRecipe);
