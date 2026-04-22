@@ -1,0 +1,11 @@
+openapi: "3.0.0"
+info:
+  title: "API Documentation"
+  version: "1.0.0"
+  description: "このAPIはレシピ管理システムのユーザーを操作するためのエンドポイントを提供します。"
+
+servers:
+  - url: http://api.example.com
+    description: 本番環境
+  - url: http://localhost:8080
+    description: ローカル環境
